@@ -1,0 +1,48 @@
+    {% include 'admin-layout.html' %}
+    <main>
+        <div class="container-fluid">
+            <h1 class="mt-4">Сигналы</h1>
+
+          <div class="card mb-4">
+            <div class="card-body">
+                <table id="signals-data-table" class="table hover nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Datetime</th>
+                            <th>
+                            <select class="form-control" id="channel_filter">
+                                <option value="">Channel</option>
+                                {%for channel in channels:%}
+                                <option value="{{channel}}">{{channel}}</option>
+                                {%endfor%}
+                            </select>
+                            </th>
+                            <th>Symbol</th>
+                            <th>
+                                <select class="form-control" id="response_filter">
+                                <option value="">Response</option>
+                                <option value="success">Успешный</option>
+                                <option value="error">Неуспешный</option> 
+                            </select>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for signal in signals:%}
+                        <tr data-signal_id="{{signal['_id']}}" class="main-signal-tr {%if 'error' in signal['response']:%}error-signal{%endif%}">
+                            <td data-order="{{signal['timestamp']}}">{{signal['datetime']}}</td>
+                            <td>{{signal['channel']}}</td>
+                            <td>{{signal['symbol']}}</td>
+                            <td style="white-space: pre-wrap;">{{signal['response']}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>  
+            <div class="card-footer small text-muted">Обновлено в {{today}}</div>
+        </div>
+    </div>
+</main>
+{% include 'admin-end.html' %}
+<script src="{{ url_for('static', filename='js/signals.js') }}"></script>
+</html>

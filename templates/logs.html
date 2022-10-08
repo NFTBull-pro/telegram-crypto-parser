@@ -1,0 +1,20 @@
+{% include 'admin-layout.html' %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Логирование</h1>
+        
+        <div id="search_input_div">
+        	<input class="form-control" id="search_input" type="text" placeholder="Введите текст...">
+        </div>
+        
+        <div class="card mb-4">
+        <div class="card-body">
+ <pre id="code_logs">{%if logs:%}{{logs|safe}}{%else:%}<code>Тут пока нет данных...</code>{%endif%}</pre>
+        </div>  
+        <div class="card-footer small text-muted">Обновлено в {{today}}</div>
+    </div>
+</div>
+</main>
+{% include 'admin-end.html' %}
+</html>
+
